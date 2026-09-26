@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "/api/orders";
+const API_URL = "https://coffee-shop-backend-8pcw.onrender.com/api/orders";
 
 function Cart({
   cart,
