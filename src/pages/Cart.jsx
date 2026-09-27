@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "https://coffee-shop-backend-8pcw.onrender.com/api/orders";
+const API_URL = "/api/orders";
 
 function Cart({
   cart,
@@ -119,7 +119,7 @@ function Cart({
       console.error("Order error:", error);
 
       alert(
-        "Could not place the order. Please make sure the backend is running on port 5000."
+        error.message || "Could not place the order. Please try again."
       );
     } finally {
       setIsSubmitting(false);
