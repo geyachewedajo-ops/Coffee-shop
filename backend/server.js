@@ -9,6 +9,11 @@ const adminRoutes = require("./routes/admin");
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Buna Coffee Backend is running ☕");
+});
+
+
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
