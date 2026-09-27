@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "/api/admin/login";
+const API_URL =
+  "https://coffee-shop-backend-8pcw.onrender.com/api/admin/login";
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -36,30 +37,32 @@ function AdminLogin() {
         },
         body: JSON.stringify({
           username: username.trim(),
-          password: password,
+          password,
         }),
       });
+
+      const contentType = response.headers.get("content-type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error(
+          "Server returned an invalid response. Please check the backend."
+        );
+      }
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Login failed."
-        );
+        throw new Error(data.message || "Login failed.");
       }
 
-      localStorage.setItem(
-        "adminToken",
-        data.token
-      );
+      localStorage.setItem("adminToken", data.token);
 
       navigate("/admin");
     } catch (error) {
       console.error("Admin login error:", error);
 
       setError(
-        error.message ||
-          "Could not connect to the server."
+        error.message || "Could not connect to the server."
       );
     } finally {
       setLoading(false);
